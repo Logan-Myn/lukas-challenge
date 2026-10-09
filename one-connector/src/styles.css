@@ -130,3 +130,9 @@ html, body { margin: 0; background: var(--bg); overflow: hidden; }
 .ec-x { color: #8C887F; margin: 0 6px; }
 
 .b-overlay.label-only .b-toolbar, .b-overlay.label-only .b-gizmo, .b-overlay.label-only .b-navs { display: none; }
+
+/* ---------- floating prompt bar ---------- */
+.promptbar { position: absolute; left: 50%; bottom: 72px; display: flex; align-items: center; gap: 22px; visibility: hidden;
+             padding: 22px 38px 22px 28px; border-radius: 26px; background: rgba(38,38,36,.94); border: 1px solid #45443F;
+             box-shadow: 0 30px 80px rgba(0,0,0,.55); font: 500 44px/1.2 var(--ui); color: var(--text); white-space: nowrap; }
+.promptbar img { width: 44px; height: 44px; }

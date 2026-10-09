@@ -10,7 +10,11 @@ export function createFraming(stage, world) {
   card.innerHTML = `<div class="ec-title">One connector.</div>
     <div class="ec-lockup"><img class="ec-spark" src="/assets/claude-spark.svg" alt=""><span class="ec-name">Claude</span>
     <span class="ec-x">×</span><img class="ec-blender" src="/assets/blender-logo.svg" alt=""><span class="ec-name">Blender</span></div>`;
-  stage.append(dim, card);
+  const bar = document.createElement('div');
+  bar.className = 'promptbar';
+  bar.innerHTML = `<img src="/assets/claude-spark.svg" alt=""><span class="pb-text"></span>`;
+  stage.append(dim, bar, card);
+  const barText = bar.querySelector('.pb-text');
   const title = card.querySelector('.ec-title'), lockup = card.querySelector('.ec-lockup');
 
   return {
@@ -26,6 +30,11 @@ export function createFraming(stage, world) {
       lockup.style.transform = `translateY(${(1 - k2) * 40}px)`;
       lockup.style.clipPath = `inset(0 0 ${(1 - k2) * 100}% 0)`;
       card.style.visibility = e > 0 ? 'visible' : 'hidden';
+      const pb = ui.promptBar;
+      barText.textContent = pb.text;
+      bar.style.visibility = pb.k > 0 ? 'visible' : 'hidden';
+      bar.style.opacity = String(pb.k);
+      bar.style.transform = `translateX(-50%) translateY(${(1 - pb.k) * 48}px)`;
     },
   };
 }

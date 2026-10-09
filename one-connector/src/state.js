@@ -97,7 +97,7 @@ function cameraAt(t) {
 
 export function stateAt(t) {
   if (lookParam && LOOKS[lookParam]) {
-    return { t, view: LOOKS[lookParam], ui: { ...uiAt(14.99), endCard: 0, overlays: 'none', focus: { ...FOCUS.full, rotY: 0 } } };
+    return { t, view: LOOKS[lookParam], ui: { ...uiAt(14.99), endCard: 0, promptBar: { text: '', k: 0 }, overlays: 'none', focus: { ...FOCUS.full, rotY: 0 } } };
   }
   const rise = 1.25 * beatSteps(prog(t, 2.5, 5.0), 5);
   return {
@@ -117,6 +117,15 @@ export function stateAt(t) {
   };
 }
 
+// The sent prompt stays on screen as a floating bar while Blender carries it out.
+const BARS = [[0, 2.0, 4.72], [1, 6.0, 7.72], [2, 8.78, 10.72], [3, 11.5, 13.9]];
+function promptBarAt(t) {
+  const bar = BARS.find(([, a, b]) => t >= a && t < b);
+  if (!bar) return { text: '', k: 0 };
+  const [i, a, b] = bar;
+  return { text: PROMPTS[i].text, k: ease.outExpo(prog(t, a, a + 0.35)) * (1 - ease.inOutCubic(prog(t, b - 0.22, b))) };
+}
+
 function uiAt(t, rise = 1.25) {
   const towers = Math.round(clamp01(rise) * CITY.towers);
   const flying = t >= 8.5 && t < 11.5;
@@ -131,5 +140,6 @@ function uiAt(t, rise = 1.25) {
     overlays: flying ? 'none' : t >= 11.5 ? 'label' : 'all',
     passepartout: 0,
     endCard: prog(t, 14.0, 14.7),
+    promptBar: promptBarAt(t),
   };
 }
