@@ -18,6 +18,12 @@ over the whole UI pushes into the chat when a prompt is typed and whips to the v
 result lands, so all text is large in frame. Claude builds a city; the final top view reveals the
 city's footprint is Claude's spark.
 
+Presentation style: a product-launch overview, not a screen recording. The Blender window and the
+Claude window float side by side on a dark stage with soft depth; during whips they tilt slightly
+in 3D. The motion camera isolates regions (chat, viewport, Outliner) like a keynote walkthrough.
+The Blender UI is the real Blender 5 layout, referenced from official blender.org screenshots,
+cleaned and enlarged for readability. No callout labels (corner labels are banned).
+
 ## Beat map (120 BPM, beat b at t = b × 0.5 s, b = 0…29)
 | Beats | Time | Frame |
 |---|---|---|
