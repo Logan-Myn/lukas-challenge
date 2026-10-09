@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test test/",
+    "test": "node --test test/*.test.mjs",
     "preview": "node tools/serve.mjs",
     "still": "node tools/still.mjs",
     "score": "node audio/score.mjs",
