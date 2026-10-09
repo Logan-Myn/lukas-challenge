@@ -1,6 +1,9 @@
 import { DURATION } from './timeline.js';
 import { stateAt } from './state.js';
 import { createViewport } from './scene/viewport.js';
+import { createBlenderUI } from './ui/blender.js';
+import { createClaudeUI } from './ui/claude.js';
+import { createFraming } from './ui/framing.js';
 
 const params = new URLSearchParams(location.search);
 const clampT = t => {
@@ -17,10 +20,18 @@ window.seek = t => {
 window.ready = (async () => {
   await Promise.all([
     document.fonts.load('400 20px "Geist Sans"'), document.fonts.load('400 20px "Geist Mono"'),
-    document.fonts.load('400 20px "Instrument Serif"'),
+    document.fonts.load('400 20px "Instrument Serif"'), document.fonts.load('500 20px "Geist Sans"'),
+    document.fonts.load('600 20px "Geist Sans"'),
   ]);
-  const viewport = await createViewport(document.getElementById('gl'), params);
-  apply = s => viewport.update(s);
+  const stage = document.getElementById('stage'), world = document.getElementById('world');
+  const claude = createClaudeUI(world);
+  const blender = createBlenderUI(world);
+  const gl = document.getElementById('gl');
+  blender.viewportEl.prepend(gl);
+  const framing = createFraming(stage, world);
+  const viewport = await createViewport(gl, params);
+  await Promise.all([...document.images].map(img => img.decode()));
+  apply = s => { blender.update(s.ui); claude.update(s.ui); framing.update(s.ui); viewport.update(s); };
   window.seek(0);
 })();
 

@@ -5,7 +5,9 @@ export function createDefaultScene() {
   const group = new THREE.Group();
 
   const grid = new THREE.Mesh(new THREE.PlaneGeometry(400, 400), new THREE.ShaderMaterial({
-    transparent: true, depthWrite: false,
+    // Blended but kept in the opaque list so it draws first and every object covers it, as in Blender.
+    transparent: false, depthWrite: false,
+    blending: THREE.CustomBlending, blendSrc: THREE.SrcAlphaFactor, blendDst: THREE.OneMinusSrcAlphaFactor,
     uniforms: { uOpacity: { value: 1 } },
     vertexShader: `varying vec3 vW; void main(){ vec4 w = modelMatrix*vec4(position,1.); vW = w.xyz; gl_Position = projectionMatrix*viewMatrix*w; }`,
     fragmentShader: `
@@ -43,7 +45,7 @@ export function createDefaultScene() {
   group.add(lamp);
 
   return {
-    group, cube,
+    group, cube, grid,
     update(v) {
       cube.visible = v.cube > 0.001;
       cube.scale.setScalar(Math.max(v.cube, 0.001));

@@ -26,7 +26,7 @@ function seededDenoiseTexture(size = 64) {
   return tex;
 }
 
-export function createPost(renderer, scene, camera, w, h) {
+export function createPost(renderer, scene, camera, w, h, aoExclude = []) {
   const target = new THREE.WebGLRenderTarget(w, h, { type: THREE.HalfFloatType, samples: 4 });
   const composer = new EffectComposer(renderer, target);
   composer.setPixelRatio(1);
@@ -38,6 +38,14 @@ export function createPost(renderer, scene, camera, w, h) {
   gtao.pdMaterial.uniforms.tNoise.value = gtao.pdNoiseTexture;
   gtao.blendIntensity = 0.9;
   gtao.updateGtaoMaterial({ radius: 0.35, distanceExponent: 1.4, thickness: 1.2, scale: 1.0, samples: 16 });
+  // Overlay meshes (Blender's floor grid) must not cast ambient occlusion onto the scene.
+  const gtaoRender = gtao.render.bind(gtao);
+  gtao.render = (...args) => {
+    const was = aoExclude.map(o => o.visible);
+    aoExclude.forEach(o => { o.visible = false; });
+    gtaoRender(...args);
+    aoExclude.forEach((o, i) => { o.visible = was[i]; });
+  };
   composer.addPass(gtao);
   const outline = new OutlinePass(new THREE.Vector2(w, h), scene, camera);
   outline.visibleEdgeColor.set('#D97757');

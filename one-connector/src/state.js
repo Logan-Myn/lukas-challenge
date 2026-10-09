@@ -1,4 +1,4 @@
-export const STARTUP_CAM = { pos: [10.9, 7.9, 10.9], target: [0, 0, 0], fov: 44, ortho: false, orthoHeight: 0 };
+export const STARTUP_CAM = { pos: [12.99, 10.04, 6.06], target: [0, 0, 0], fov: 44, ortho: false, orthoHeight: 0 };
 
 const HERO_CAM = { pos: [17, 11, 19], target: [0, 0.8, 0], fov: 38, ortho: false, orthoHeight: 0 };
 export const LOOKS = {
@@ -11,10 +11,21 @@ export const LOOKS = {
 };
 const lookParam = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('look') : null;
 
+const STATIC_UI = {
+  focus: { cx: 960, cy: 540, s: 1, rotY: 0 },
+  chat: [{ role: 'user', text: 'Delete the cube. Build me a city.' },
+         { role: 'claude', code: ['bpy.data.objects.remove(bpy.data.objects["Cube"])', 'for x, y, h in lots:',
+           '    add = bpy.ops.mesh.primitive_cube_add', '    add(location=(x, y, h / 2))'], lines: 4, done: false }],
+  draft: { text: '', shown: 0 }, caretOn: true,
+  outliner: { cube: true, towers: 0 }, activeName: 'Cube', viewLabel: 'User Perspective', shading: 'solid',
+  overlays: true, passepartout: 0, endCard: 0,
+};
+
 export function stateAt(t) {
-  if (lookParam && LOOKS[lookParam]) return { t, view: LOOKS[lookParam] };
+  if (lookParam && LOOKS[lookParam]) return { t, view: LOOKS[lookParam], ui: { ...STATIC_UI, overlays: false, focus: { cx: 1105, cy: 530, s: 1920 / 900, rotY: 0 } } };
   return {
     t,
     view: { mode: 'solid', cube: 1, cubeSelected: true, rise: 0, windows: 0, dof: 0, overlays: 1, camera: STARTUP_CAM },
+    ui: STATIC_UI,
   };
 }

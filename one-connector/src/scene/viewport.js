@@ -35,7 +35,7 @@ export async function createViewport(canvas) {
   key.shadow.bias = -0.0004; key.shadow.normalBias = 0.02;
   scene.add(hemi, key, key.target);
 
-  const post = createPost(renderer, scene, camera, VIEW_W, VIEW_H);
+  const post = createPost(renderer, scene, camera, VIEW_W, VIEW_H, [def.grid]);
   post.outline.selectedObjects = [def.cube];
   const nightFog = new THREE.FogExp2(0x07080a, 0.02);
   const target = new THREE.Vector3();
