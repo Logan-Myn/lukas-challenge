@@ -1,0 +1,18 @@
+@import url('/node_modules/@fontsource/geist-sans/400.css');
+@import url('/node_modules/@fontsource/geist-sans/500.css');
+@import url('/node_modules/@fontsource/geist-sans/600.css');
+@import url('/node_modules/@fontsource/geist-mono/400.css');
+@import url('/node_modules/@fontsource/instrument-serif/400.css');
+
+:root {
+  --bg: #141414; --panel: #1D1D1D; --panel-2: #2B2B2B; --header: #303030;
+  --viewport: #3D3D3D; --text: #F0EEE6; --accent: #D97757;
+  --ui: 'Geist Sans', sans-serif; --mono: 'Geist Mono', monospace; --display: 'Instrument Serif', serif;
+}
+html, body { margin: 0; background: var(--bg); overflow: hidden; }
+#stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg);
+         transform-origin: 0 0; font-family: var(--ui); color: var(--text); }
+#gl { position: absolute; inset: 0; width: 1920px; height: 1080px; display: block; }
+#preview { position: fixed; left: 0; right: 0; bottom: 0; height: 44px; display: flex; gap: 12px;
+           align-items: center; padding: 0 16px; background: #000; color: #fff; font: 13px var(--mono); }
+#preview input { flex: 1; }
