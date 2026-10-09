@@ -1,5 +1,5 @@
 import { DURATION } from './timeline.js';
-import { stateAt } from './state.js';
+import { stateAt, CITY } from './state.js';
 import { createViewport } from './scene/viewport.js';
 import { createBlenderUI } from './ui/blender.js';
 import { createClaudeUI } from './ui/claude.js';
@@ -30,6 +30,7 @@ window.ready = (async () => {
   blender.viewportEl.prepend(gl);
   const framing = createFraming(stage, world);
   const viewport = await createViewport(gl, params);
+  CITY.towers = viewport.towerCount;
   await Promise.all([...document.images].map(img => img.decode()));
   apply = s => { blender.update(s.ui); claude.update(s.ui); framing.update(s.ui); viewport.update(s); };
   window.seek(0);

@@ -19,7 +19,7 @@ export function createFraming(stage, world) {
       world.style.transform =
         `translate(${STAGE.w / 2}px, ${STAGE.h / 2}px) rotateY(${rotY}deg) scale(${s}) translate(${-cx}px, ${-cy}px)`;
       const e = ui.endCard;
-      dim.style.opacity = String(0.6 * e);
+      dim.style.opacity = String(0.3 * e);
       const k1 = ease.outExpo(Math.min(1, e * 1.4)), k2 = ease.outExpo(Math.max(0, e * 1.4 - 0.4));
       title.style.transform = `translateY(${(1 - k1) * 60}px)`;
       title.style.clipPath = `inset(0 0 ${(1 - k1) * 100}% 0)`;

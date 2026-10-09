@@ -128,3 +128,5 @@ html, body { margin: 0; background: var(--bg); overflow: hidden; }
 .ec-spark { width: 54px; height: 54px; }
 .ec-blender { width: 62px; height: 51px; filter: grayscale(1) brightness(2.4); }
 .ec-x { color: #8C887F; margin: 0 6px; }
+
+.b-overlay.label-only .b-toolbar, .b-overlay.label-only .b-gizmo, .b-overlay.label-only .b-navs { display: none; }

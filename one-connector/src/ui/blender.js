@@ -82,7 +82,8 @@ export function createBlenderUI(root) {
       propsObj.textContent = ui.activeName;
       shades.forEach(s => s.classList.toggle('on', s.dataset.k === ui.shading));
       shades.forEach(s => s.classList.toggle('accent', s.dataset.k === ui.shading && ui.shading === 'rendered'));
-      overlay.style.opacity = ui.overlays ? '1' : '0';
+      overlay.style.opacity = ui.overlays === 'none' ? '0' : '1';
+      overlay.classList.toggle('label-only', ui.overlays === 'label');
       passe.style.opacity = String(ui.passepartout);
       const o = ui.outliner;
       const list = [['Camera', 'camera'], ...(o.cube ? [['Cube', 'cube']] : []), ['Light', 'light']];

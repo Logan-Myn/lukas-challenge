@@ -54,6 +54,7 @@ export async function createViewport(canvas) {
   };
 
   return {
+    towerCount: mask.reduce((a, b) => a + b, 0),
     update(s) {
       const v = s.view;
       look(v.mode === 'rendered', v.camera.ortho);

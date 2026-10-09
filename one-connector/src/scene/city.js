@@ -190,7 +190,7 @@ export function createCity(data) {
       for (const m of [carBody, heads, tails]) m.instanceMatrix.needsUpdate = true;
       headMat.emissiveIntensity = 3 * night;
       tailMat.emissiveIntensity = 2.5 * night;
-      group.visible = v.rise > 0;
+      group.visible = v.ground > 0 || v.rise > 0;
     },
   };
 }
